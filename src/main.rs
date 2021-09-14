@@ -1,5 +1,3 @@
-struct Solution;
-
 fn main(){
-
+    
 }
