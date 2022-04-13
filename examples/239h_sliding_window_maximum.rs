@@ -1,5 +1,4 @@
 use std::collections::VecDeque;
-struct Solution;
 impl Solution {
     pub fn max_sliding_window(nums: Vec<i32>, k: i32) -> Vec<i32> {
         let mut ans: Vec<i32> = Vec::new();
@@ -13,7 +12,7 @@ impl Solution {
                     deque.pop_front();
                 }
                 ans.push(*deque.front().unwrap());
-            } 
+            }
         }
         ans
     }
@@ -25,9 +24,12 @@ fn push(deque: &mut VecDeque<i32>, n: i32) {
     }
     deque.push_back(n);
 }
+struct Solution;
 
 fn main() {
-    let nums: Vec<i32> = vec!(1,3,-1,-3,5,3,6,7);
-    let ans  = Solution::max_sliding_window(nums, 3);
-    println!("{:?}", ans);
+    assert_eq!(
+        Solution::max_sliding_window(vec![1, 3, -1, -3, 5, 3, 6, 7], 3),
+        vec![3, 3, 5, 5, 6, 7]
+    );
+    assert_eq!(Solution::max_sliding_window(vec![1], 1), vec![1]);
 }

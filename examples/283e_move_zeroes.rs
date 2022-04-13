@@ -1,11 +1,3 @@
-struct Solution;
-
-fn main() {
-    let mut nums: Vec<i32> = vec![0, 1, 0, 3, 9];
-    Solution::move_zeroes(&mut nums);
-    println!("{:?}", nums);
-}
-
 impl Solution {
     pub fn move_zeroes(nums: &mut Vec<i32>) {
         let mut i = 0;
@@ -22,4 +14,10 @@ impl Solution {
     }
 }
 
+struct Solution;
 
+fn main() {
+    let mut nums: Vec<i32> = vec![0, 1, 0, 3, 9];
+    Solution::move_zeroes(&mut nums);
+    println!("{:?}", nums);
+}

@@ -1,10 +1,3 @@
-struct Solution;
-
-fn main() {
-    let digits: Vec<i32> = vec![9, 9, 9];
-    println!("{:?}", Solution::plus_one(digits));
-}
-
 impl Solution {
     pub fn plus_one(digits: Vec<i32>) -> Vec<i32> {
         let mut digits = digits.clone();
@@ -25,4 +18,10 @@ impl Solution {
         digits[0] = 1;
         digits
     }
+}
+struct Solution;
+
+fn main() {
+    let digits: Vec<i32> = vec![9, 9, 9];
+    println!("{:?}", Solution::plus_one(digits));
 }

@@ -30,6 +30,7 @@ impl Solution {
 }
 
 fn main() {
-    let s =String::from("()[]{}");
-    println!("{}", Solution::is_valid(s));
+    assert_eq!(Solution::is_valid("()[]{}".into()), true);
+    assert_eq!(Solution::is_valid("()".into()), true);
+    assert_eq!(Solution::is_valid("(]".into()), false);
 }

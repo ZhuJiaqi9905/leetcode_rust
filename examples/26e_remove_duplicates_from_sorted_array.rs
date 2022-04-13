@@ -1,11 +1,3 @@
-struct Solution;
-
-fn main() {
-    let mut nums: Vec<i32> = vec![0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
-    println!("{:?}", Solution::remove_duplicates(&mut nums));
-    println!("{:?}", nums);
-}
-
 impl Solution {
     pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
         let mut i = 0;
@@ -23,4 +15,12 @@ impl Solution {
         }
         (i + 1) as i32
     }
+}
+
+struct Solution;
+
+fn main() {
+    let mut nums: Vec<i32> = vec![0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+    println!("{:?}", Solution::remove_duplicates(&mut nums));
+    println!("{:?}", nums);
 }
