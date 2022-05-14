@@ -37,7 +37,7 @@ impl Solution {
         if n < m {
             return -1;
         }
-        let mut pi = vec![0; m]; // 子串 s[0:i] 的最长的相等的真前缀与真后缀的长度.
+        let mut pi = vec![0; m]; // 子串 s[0:i](左闭右闭) 的最长的相等的真前缀与真后缀的长度.
         let mut j = 0;
         // Compute the pi[i]
         for i in 1..m {

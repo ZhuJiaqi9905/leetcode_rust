@@ -20,19 +20,15 @@ impl TreeNode {
 }
 
 impl Solution {
-    pub fn preorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
-        let mut v = vec![];
-        Solution::dfs(root, &mut v);
-        v
-    }
-    pub fn dfs(root: Option<Rc<RefCell<TreeNode>>>, ans: &mut Vec<i32>) {
-        if root.is_none() {
-            return;
+    pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        match root {
+            Some(node) => {
+                let left = Self::max_depth(node.borrow().left.clone());
+                let right = Self::max_depth(node.borrow_mut().right.clone());
+                i32::max(left, right) + 1
+            }
+            None => 0,
         }
-        let root = root.unwrap();
-        ans.push(root.borrow().val);
-        Solution::dfs(root.borrow().left.clone(), ans);
-        Solution::dfs(root.borrow().right.clone(), ans);
     }
 }
 
@@ -48,8 +44,5 @@ fn main() {
     root.left = Some(Rc::new(RefCell::new(node1)));
     root.right = Some(Rc::new(RefCell::new(node2)));
 
-    assert_eq!(
-        vec![3, 9, 20, 15, 7],
-        Solution::preorder_traversal(Some(Rc::new(RefCell::new(root))))
-    );
+    assert_eq!(3, Solution::max_depth(Some(Rc::new(RefCell::new(root)))));
 }

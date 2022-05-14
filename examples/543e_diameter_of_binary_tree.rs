@@ -20,19 +20,24 @@ impl TreeNode {
 }
 
 impl Solution {
-    pub fn preorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
-        let mut v = vec![];
-        Solution::dfs(root, &mut v);
-        v
+    pub fn diameter_of_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        Solution::dfs(root).1
     }
-    pub fn dfs(root: Option<Rc<RefCell<TreeNode>>>, ans: &mut Vec<i32>) {
-        if root.is_none() {
-            return;
+    /// Return max_depth, max_diameter
+    pub fn dfs(root: Option<Rc<RefCell<TreeNode>>>) -> (i32, i32) {
+        match root {
+            Some(node) => {
+                let left = Self::dfs(node.borrow().left.clone());
+                let right = Self::dfs(node.borrow_mut().right.clone());
+                // let max_depth = std::cmp::max(l.0, r.0) + 1;
+                let max_depth = i32::max(left.0, right.0) + 1;
+                let mut max_diameter = left.0 + right.0;
+                max_diameter = max_diameter.max(left.1);
+                max_diameter = max_diameter.max(right.1);
+                (max_depth, max_diameter)
+            }
+            None => (0, 0),
         }
-        let root = root.unwrap();
-        ans.push(root.borrow().val);
-        Solution::dfs(root.borrow().left.clone(), ans);
-        Solution::dfs(root.borrow().right.clone(), ans);
     }
 }
 
@@ -49,7 +54,7 @@ fn main() {
     root.right = Some(Rc::new(RefCell::new(node2)));
 
     assert_eq!(
-        vec![3, 9, 20, 15, 7],
-        Solution::preorder_traversal(Some(Rc::new(RefCell::new(root))))
+        3,
+        Solution::diameter_of_binary_tree(Some(Rc::new(RefCell::new(root))))
     );
 }
