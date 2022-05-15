@@ -20,36 +20,88 @@ impl TreeNode {
 }
 
 impl Solution {
-    pub fn preorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
-        let mut v = vec![];
-        Solution::dfs(root, &mut v);
-        v
+    pub fn is_cousins(root: Option<Rc<RefCell<TreeNode>>>, x: i32, y: i32) -> bool {
+        let mut x_parent = None;
+        let mut y_parent = None;
+        let mut x_depth = 0;
+        let mut y_depth = 0;
+        Solution::dfs(
+            root,
+            x,
+            y,
+            None,
+            0,
+            &mut x_parent,
+            &mut y_parent,
+            &mut x_depth,
+            &mut y_depth,
+        );
+        if x_depth == y_depth && x_parent != y_parent {
+            return true;
+        }
+        false
     }
-    pub fn dfs(root: Option<Rc<RefCell<TreeNode>>>, ans: &mut Vec<i32>) {
+    fn dfs(
+        root: Option<Rc<RefCell<TreeNode>>>,
+        x: i32,
+        y: i32,
+        parent: Option<Rc<RefCell<TreeNode>>>,
+        depth: i32,
+        x_parent: &mut Option<Rc<RefCell<TreeNode>>>,
+        y_parent: &mut Option<Rc<RefCell<TreeNode>>>,
+        x_depth: &mut i32,
+        y_depth: &mut i32,
+    ) {
         if root.is_none() {
             return;
         }
         let root = root.unwrap();
-        ans.push(root.borrow().val);
-        Solution::dfs(root.borrow().left.clone(), ans);
-        Solution::dfs(root.borrow().right.clone(), ans);
+        if root.borrow().val == x {
+            *x_parent = parent;
+            *x_depth = depth;
+        } else if root.borrow().val == y {
+            *y_parent = parent;
+            *y_depth = depth;
+        }
+
+        Solution::dfs(
+            root.borrow().left.clone(),
+            x,
+            y,
+            Some(root.clone()),
+            depth + 1,
+            x_parent,
+            y_parent,
+            x_depth,
+            y_depth,
+        );
+        Solution::dfs(
+            root.borrow().right.clone(),
+            x,
+            y,
+            Some(root.clone()),
+            depth + 1,
+            x_parent,
+            y_parent,
+            x_depth,
+            y_depth,
+        );
     }
 }
 
 struct Solution;
 fn main() {
-    let mut root = TreeNode::new(3);
-    let node1 = TreeNode::new(9);
-    let mut node2 = TreeNode::new(20);
-    let node3 = TreeNode::new(15);
-    let node4 = TreeNode::new(7);
-    node2.left = Some(Rc::new(RefCell::new(node3)));
-    node2.right = Some(Rc::new(RefCell::new(node4)));
-    root.left = Some(Rc::new(RefCell::new(node1)));
-    root.right = Some(Rc::new(RefCell::new(node2)));
-
-    assert_eq!(
-        vec![3, 9, 20, 15, 7],
-        Solution::preorder_traversal(Some(Rc::new(RefCell::new(root))))
-    );
+    let mut node1 = TreeNode::new(1);
+    let mut node2 = TreeNode::new(2);
+    let mut node3 = TreeNode::new(3);
+    let node4 = TreeNode::new(4);
+    let mut node5 = TreeNode::new(5);
+    let node6 = TreeNode::new(6);
+    let node7 = TreeNode::new(7);
+    node5.left = Some(Rc::new(RefCell::new(node7)));
+    node3.left = Some(Rc::new(RefCell::new(node5)));
+    node3.right = Some(Rc::new(RefCell::new(node6)));
+    node2.left = Some(Rc::new(RefCell::new(node4)));
+    node1.left = Some(Rc::new(RefCell::new(node2)));
+    node1.right = Some(Rc::new(RefCell::new(node3)));
 }
