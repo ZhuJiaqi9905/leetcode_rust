@@ -25,7 +25,8 @@ impl Solution {
         Solution::dfs(root, &mut max_sum);
         max_sum
     }
-
+    // 要注意BST的成立条件
+    // 注意i32的最小值是负数，不是0
     /// Returns (is_bst, sum_val_of_the_subtree, max_val_of_the_subtree, min_val_of_the_subtree)
     fn dfs(root: Option<Rc<RefCell<TreeNode>>>, max_sum: &mut i32) -> (bool, i32, i32, i32) {
         if root.is_none() {
@@ -62,5 +63,8 @@ fn main() {
     node2.left = Some(Rc::new(RefCell::new(node3)));
     node2.right = Some(Rc::new(RefCell::new(node4)));
     node1.right = Some(Rc::new(RefCell::new(node2)));
-    println!("{}", Solution::max_sum_bst(Some(Rc::new(RefCell::new(node1)))));
+    println!(
+        "{}",
+        Solution::max_sum_bst(Some(Rc::new(RefCell::new(node1))))
+    );
 }
