@@ -56,13 +56,4 @@ impl Solution {
 }
 
 struct Solution;
-fn main() {
-    let mut node1 = TreeNode::new(1);
-    let mut node2 = TreeNode::new(10);
-    let mut node3 = TreeNode::new(-5);
-    let node4 = TreeNode::new(20);
-
-    node2.left = Some(Rc::new(RefCell::new(node3)));
-    node2.right = Some(Rc::new(RefCell::new(node4)));
-    node1.right = Some(Rc::new(RefCell::new(node2)));
-}
+fn main() {}
