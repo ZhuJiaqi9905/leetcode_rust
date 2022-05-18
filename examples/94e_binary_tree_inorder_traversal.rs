@@ -20,28 +20,13 @@ impl TreeNode {
     }
 }
 impl Solution {
-    pub fn find_target(root: Option<Rc<RefCell<TreeNode>>>, k: i32) -> bool {
-        let mut arr = vec![];
-        Solution::dfs(root, &mut arr);
-        // 双指针
-        let len = arr.len();
-        let mut i = 0;
-        let mut j = len - 1;
-        while i < j {
-            let sum = arr[i] + arr[j];
-            if sum == k {
-                return true;
-            } else if sum < k {
-                i += 1;
-            } else {
-                j -= 1;
-            }
-        }
-        false
-    }
-    /// inorder traversal
+    pub fn inorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+       let mut ans = vec![];
+       Solution::dfs(root, &mut ans);
+       ans 
+    } 
     fn dfs(root: Option<Rc<RefCell<TreeNode>>>, ans: &mut Vec<i32>) {
-        if root.is_none() {
+        if root.is_none(){
             return;
         }
         let root = root.unwrap();
