@@ -1,4 +1,8 @@
+// 单向链表的操作，要注意到把Box<T>和&mut Box<T>搭配使用，
+// 实现在Rust的编译检查条件下仍能够正确编程。
+
 // Definition for singly-linked list.
+
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
     pub val: i32,
@@ -26,7 +30,6 @@ impl Solution {
 
         // p_node是在链表中移动的指针，所以用引用来实现
         let mut p_node = &mut head;
-
         let mut begin = true;
         while l1.is_some() || l2.is_some() {
             let l1_val = match &l1 {
